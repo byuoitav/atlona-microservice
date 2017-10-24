@@ -91,15 +91,3 @@ func charInBuffer(toCheck byte, buffer []byte) (bool, int) {
 //   conn.Close()
 //   return s
 // }
-
-// func removeNil(b []byte) (ret []byte) {
-// 	for _, c := range b {
-// 		switch c {
-// 		case '\x00':
-// 			break
-// 		default:
-// 			ret = append(ret, c)
-// 		}
-// 	}
-// 	return ret
-// }
