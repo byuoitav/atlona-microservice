@@ -11,7 +11,7 @@ import (
 const (
 	CARRIAGE_RETURN           = 0x0D
 	LINE_FEED                 = 0x0A
-	SPACE                     = 0x20
+	COMMA                     = 0x2C
 	DELAY_BETWEEN_CONNECTIONS = time.Second * 10
 )
 

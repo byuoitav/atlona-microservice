@@ -24,6 +24,7 @@ func main() {
 	//Functionality endpoints
 	secure.GET("/:address/input/:input/:output", handlers.SwitchInput)
 	secure.GET("/:address/status/:output", handlers.CheckInput)
+	secure.GET("/:address/allstatus", handlers.AllInputs)
 
 	//Status endpoints
 

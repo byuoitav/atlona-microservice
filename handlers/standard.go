@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -45,6 +46,30 @@ func CheckInput(context echo.Context) error {
 
 	log.Printf("Success")
 	resp = DecPort(resp)
+	return context.JSON(http.StatusOK, statusevaluators.Input{Input: resp})
+}
+
+//Endpoint to determine the status of all inputs and outputs. 4 total inputs, 5 total outputs.
+func AllInputs(context echo.Context) error {
+	address := context.Param("address")
+	feedback := make(map[string]string)
+	log.Printf("Verifying the input of all output ports.")
+	for i := 1; i <= 5; i++ {
+		out := strconv.Itoa(i)
+		in, err := help.GetInput(address, out)
+		if err != nil {
+			log.Printf("There was a problem: %v", err.Error())
+			return context.JSON(http.StatusInternalServerError, err.Error())
+		}
+		out = DecPort(out)
+		in = DecPort(in)
+		feedback[out] = in
+	}
+	log.Printf("Success")
+	resp := ""
+	for key := range feedback {
+		resp += fmt.Sprintf("Input: %s Output: %s ", feedback[key], key)
+	}
 	return context.JSON(http.StatusOK, statusevaluators.Input{Input: resp})
 }
 
