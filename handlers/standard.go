@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -66,11 +65,7 @@ func AllInputs(context echo.Context) error {
 		feedback[out] = in
 	}
 	log.Printf("Success")
-	resp := ""
-	for key := range feedback {
-		resp += fmt.Sprintf("Input: %s Output: %s ", feedback[key], key)
-	}
-	return context.JSON(http.StatusOK, statusevaluators.Input{Input: resp})
+	return context.JSON(http.StatusOK, feedback)
 }
 
 //Function to increment the port from a base 0 to a base 1 input/output
