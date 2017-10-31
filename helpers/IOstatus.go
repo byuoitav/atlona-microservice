@@ -11,7 +11,6 @@ func GetInput(address, output string) (string, error) {
 	conn.Write([]byte(command))
 	resp, err := readUntil(CARRIAGE_RETURN, conn, 1)
 	if err != nil {
-		log.Printf("Maybe it didn't read 3")
 		log.Printf("%s", err)
 	}
 	log.Printf("Feedback: %s", resp)

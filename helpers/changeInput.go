@@ -11,7 +11,7 @@ import (
 const (
 	CARRIAGE_RETURN           = 0x0D
 	LINE_FEED                 = 0x0A
-	SPACE                     = 0x20
+	COMMA                     = 0x2C
 	DELAY_BETWEEN_CONNECTIONS = time.Second * 10
 )
 
@@ -90,16 +90,4 @@ func charInBuffer(toCheck byte, buffer []byte) (bool, int) {
 //   s := string(resp)
 //   conn.Close()
 //   return s
-// }
-
-// func removeNil(b []byte) (ret []byte) {
-// 	for _, c := range b {
-// 		switch c {
-// 		case '\x00':
-// 			break
-// 		default:
-// 			ret = append(ret, c)
-// 		}
-// 	}
-// 	return ret
 // }
