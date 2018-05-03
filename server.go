@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/byuoitav/atlona-microservice/handlers"
+	"github.com/byuoitav/atlona-microservice/handlersmatrix"
 	"github.com/byuoitav/authmiddleware"
 
 	"github.com/labstack/echo"
@@ -21,12 +22,17 @@ func main() {
 	// Use the `secure` routing group to require authentication
 	secure := router.Group("", echo.WrapMiddleware(authmiddleware.Authenticate))
 
-	//Functionality endpoints
+	// Functionality endpoints for Atlona Video over IP Switching
 	secure.GET("/:address/input/:input/:output", handlers.SwitchInput)
 	secure.GET("/:address/status/:output", handlers.CheckInput)
 	secure.GET("/:address/allstatus", handlers.AllInputs)
 
-	//Status endpoints
+	// Functionality endpoints for Atlona Standard Switch
+	secure.GET("/switch/:address/input/:input/:output", handlersmatrix.SwitchInput)
+	secure.GET("/switch/:address/status/:output", handlersmatrix.CheckInput)
+	secure.GET("/switch/:address/allstatus", handlersmatrix.AllInputs)
+
+	// Status endpoints
 
 	server := http.Server{
 		Addr:           port,

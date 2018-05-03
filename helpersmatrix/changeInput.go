@@ -6,8 +6,6 @@ import (
 	"log"
 	"net"
 	"time"
-
-	"github.com/gorilla/websocket"
 )
 
 const (
