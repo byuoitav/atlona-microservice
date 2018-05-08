@@ -22,16 +22,16 @@ const (
 )
 
 type Node struct {
-	Name          string
-	Conn          *websocket.Conn
-	WriteQueue    chan base.Message
-	ReadQueue     chan base.Message
+	Name           string
+	Conn           *websocket.Conn
+	WriteQueue     chan base.Message
+	ReadQueue      chan base.Message
 	DecoderAddress string
-	filters       map[string]bool
-	readDone      chan bool
-	writeDone     chan bool
-	lastPingTime  time.Time
-	state         string
+	filters        map[string]bool
+	readDone       chan bool
+	writeDone      chan bool
+	lastPingTime   time.Time
+	state          string
 }
 
 func (n *Node) GetState() (string, interface{}) {
@@ -94,7 +94,7 @@ func (n *Node) Start(DecoderAddress string, filters []string, name string) error
 }
 
 func (n *Node) openConnection() error {
-	//open connection to the decoder 
+	//open connection to the decoder
 	dialer := &websocket.Dialer{
 		HandshakeTimeout: 10 * time.Second,
 	}
