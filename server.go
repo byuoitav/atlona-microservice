@@ -3,6 +3,7 @@ package main
 import (
 	//"log"
 	"net/http"
+	"os"
 
 	"github.com/byuoitav/atlona-microservice/handlers"
 	"github.com/byuoitav/atlona-microservice/handlersmatrix"
@@ -12,6 +13,15 @@ import (
 	"github.com/labstack/echo/middleware"
 	//"time"
 )
+
+func init() {
+	if os.Getenv("USERNAME") == "" {
+		log.Fatal("$USER variable not set")
+	}
+	if os.Getenv("PASSWORD") == "" {
+		log.Fatal("$PASSWORD variable not set")
+	}
+}
 
 func main() {
 	port := ":8015"
