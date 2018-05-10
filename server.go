@@ -15,10 +15,10 @@ import (
 )
 
 func init() {
-	if os.Getenv("USERNAME") == "" {
+	if os.Getenv("ATLONA_USERNAME") == "" {
 		log.Fatal("$USER variable not set")
 	}
-	if os.Getenv("PASSWORD") == "" {
+	if os.Getenv("ATLONA_PASSWORD") == "" {
 		log.Fatal("$PASSWORD variable not set")
 	}
 }

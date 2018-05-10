@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	envuser     = os.Getenv("USER")
-	envpassword = os.Getenv("PASSWORD")
+	envuser     = os.Getenv("ATLONA_USERNAME")
+	envpassword = os.Getenv("ATLONA_PASSWORD")
 )
 
 type Creds struct {
