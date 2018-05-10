@@ -2,14 +2,11 @@ package helpers
 
 import (
 	"encoding/json"
-	//"errors"
 	"fmt"
 	"log"
-	//"net"
 	"os"
-	//"time"
 
-	"github.com/gorilla/websocket"
+	"github.com/fatih/color"
 )
 
 var (
@@ -36,27 +33,45 @@ type Multicast struct {
 	Address string `json:"address"`
 }
 
-type Command struct {
+type SICommand struct {
 	Creds
 	SwitchConfigSet `json:"config_set"`
+}
+
+type Response struct {
+	Error        bool
+	ErrorMessage string
 }
 
 func SwitchInput(Video_input string, Audio_input string, Address string) error {
 	// Building JSON Query
 	Fig := []Config{Config{Multicast: Multicast{Address: Video_input}, Name: "ip_input1"}, Config{Multicast: Multicast{Address: Audio_input}, Name: "ip_input3"}}
-	SC := Command{Creds: Creds{Username: envuser, Password: envpassword}, SwitchConfigSet: SwitchConfigSet{Name: "ip_input", Config: Fig}}
+	SC := SICommand{Creds: Creds{Username: envuser, Password: envpassword}, SwitchConfigSet: SwitchConfigSet{Name: "ip_input", Config: Fig}}
 	fmt.Println(SC)
 	Comm, err := json.Marshal(SC)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Printf(color.HiRedString("Error:", err))
+		return err
 	}
-
+	var mresp Response
 	// Output to Console the factored JSON
 	m := string(Comm)
 	fmt.Println(m)
 
 	// Get a new websocket connection to the decoder
-	conn := OpenConnection(Address, Comm)
+	resp, err := OpenConnection(Address, Comm)
+	if err != nil {
+		log.Printf(color.HiRedString("Error:", err))
+		return err
+	}
+	err = json.Unmarshal([]byte(resp), &mresp)
+	if err != nil {
+		log.Printf(color.HiRedString("Error: %v", err))
+	}
+	if mresp.Error == true {
+		log.Printf(color.HiRedString("Error:", mresp.ErrorMessage))
+		return nil
+	}
 	return nil
 }
 

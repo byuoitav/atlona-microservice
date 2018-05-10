@@ -2,12 +2,12 @@ package main
 
 import (
 	//"log"
-	"net/http"
-	"os"
-
 	"github.com/byuoitav/atlona-microservice/handlers"
 	"github.com/byuoitav/atlona-microservice/handlersmatrix"
 	"github.com/byuoitav/authmiddleware"
+	"log"
+	"net/http"
+	"os"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -36,7 +36,7 @@ func main() {
 	secure.GET("/:address/input/:input", handlers.SwitchInput) //Format :input with 239.1.1.1!239.10.1.1
 	secure.GET("/:address/status", handlers.CheckInput)
 	//secure.GET("/:address/allstatus", handlers.AllInputs)
-	secure.GET("/:address/reboot", handlers.Reboot)
+	//secure.GET("/:address/reboot", handlers.Reboot)
 
 	// Functionality endpoints for Atlona Standard Switch
 	secure.GET("/switch/:address/input/:input/:output", handlersmatrix.SwitchInput)

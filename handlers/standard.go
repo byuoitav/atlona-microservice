@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
+	"strings"
+	//"strconv"
 
 	help "github.com/byuoitav/atlona-microservice/helpers"
 	se "github.com/byuoitav/av-api/statusevaluators"
@@ -22,38 +23,41 @@ func SwitchInput(context echo.Context) error {
 
 	// Split out the video and audio streams
 	finput := strings.Split(inputall, "!")
-	Video_input = finput[0]
-	Audio_input = finput[1]
+	Video_input := finput[0]
+	Audio_input := finput[1]
 
 	//Print out the command
-	log.Printf("Routing %v and %v on %v", video_input, audio_input, address)
+	log.Printf("Routing %v and %v on %v", Video_input, Audio_input, Address)
 
 	//Call SwitchInput from helpers
-	resp, err := help.SwitchInput(Video_input, Audio_input, Address)
+	//resp, err := help.SwitchInput(Video_input, Audio_input, Address)
+	err := help.SwitchInput(Video_input, Audio_input, Address)
 	if err != nil {
 		log.Printf("There was a problem: %v", err.Error())
 		return context.JSON(http.StatusInternalServerError, err.Error())
-	} else if strings.Contains(resp, "true") {
-		log.Printf("There was a problem: %v", resp)
-	}
+	} /* else if resp.Error == true {
+		log.Printf("There was a problem: %v", resp.ErrorMessage)
+	}*/
 	log.Printf("Success")
-	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, inputall)})
+	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", Address, inputall)})
 }
 
 func CheckInput(context echo.Context) error {
 	//Set params, only need output to verify which input is connected.
 	address := context.Param("address")
-	log.Printf("Verifiying which input is connected to %v", output)
+	inputall := context.Param("input")
+
+	//log.Printf("Verifiying which input is connected to %v", output)
 
 	//Call help.GetInput func, it will return the input as a string
-	input, err := help.GetInput(address, output)
-	if err != nil {
-		log.Printf("There was a problem: %v", err.Error())
-		return context.JSON(http.StatusInternalServerError, err.Error())
-	}
+	//input, err := help.GetInput(address, output)
+	//if err != nil {
+	//	log.Printf("There was a problem: %v", err.Error())
+	//	return context.JSON(http.StatusInternalServerError, err.Error())
+	//}
 
 	log.Printf("Success")
-	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, input)})
+	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, inputall)})
 }
 
 // Endpoint to determine the status of all inputs and outputs. 4 total inputs, 5 total outputs.
@@ -78,7 +82,7 @@ func CheckInput(context echo.Context) error {
 */
 
 // Endpoint to reboot the Atlona decoder
-func Reboot(context echo.Context) error {
+/*func Reboot(context echo.Context) error {
 	address := context.Param("address")
 	log.Printf("Rebooting the decoder %v", address)
 	reboot, err := help.DecoderReboot(address)
@@ -88,4 +92,4 @@ func Reboot(context echo.Context) error {
 	}
 	log.Printf("Success")
 	return context.JSON(http.StatusOK)
-}
+}*/
