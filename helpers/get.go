@@ -26,19 +26,19 @@ type giCommand struct {
 func GetInput(address string) (string, error) {
 	GI := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
 	fmt.Printf("output: %v\n", GI)
-	comm, err := json.Marshal(GI)
+	gcomm, err := json.Marshal(GI)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error: %v\n", err))
 		return "", err
 	}
-	test := string(comm)
+	test := string(gcomm)
 	fmt.Printf("Comm Output: %v\n", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
 	}
 
-	resp, err := OpenConnection(address, comm)
+	resp, err := OpenConnection(address, gcomm)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error Connecting to Decoder:", err))
 		return "", err
