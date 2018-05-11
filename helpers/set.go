@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
+	//"os"
 
 	"github.com/fatih/color"
 )
