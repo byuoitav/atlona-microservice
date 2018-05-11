@@ -24,9 +24,9 @@ type giCommand struct {
 }
 
 func GetInput(address string) (string, error) {
-	gi := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
-	fmt.Printf("output: %v\n", gi)
-	comm, err := json.Marshal(gi)
+	GI := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
+	fmt.Printf("output: %v\n", GI)
+	comm, err := json.Marshal(GI)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error: %v\n", err))
 		return "", err
