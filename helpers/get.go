@@ -31,8 +31,8 @@ func GetInput(address string) (string, error) {
 		fmt.Printf(color.HiRedString("Error: %v\n", err))
 		return "", err
 	}
-	//test := string(comm)
-	fmt.Printf("Comm Output: %v\n", comm)
+	test := string(comm)
+	fmt.Printf("Comm Output: %v\n", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
