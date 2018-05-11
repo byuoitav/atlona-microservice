@@ -1,0 +1,6 @@
+#Ignoring all of the VIM backup files
+**/*~
+
+#Ignoring all of the VIM swp files
+**/*.swp
+
