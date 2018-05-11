@@ -27,7 +27,7 @@ func GetInput(address string) (string, error) {
 	gi := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
 	fmt.Printf("output: %v\n", gi)
 	comm, err := json.Marshal(gi)
-	test := string(comm)
+	//test := string(comm)
 	fmt.Printf("Comm Output: %v\n", comm)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
