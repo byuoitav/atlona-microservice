@@ -34,7 +34,8 @@ func main() {
 
 	// Functionality endpoints for Atlona Video over IP Switching
 	secure.GET("/:address/input/:input", handlers.SwitchInput) //Format :input with 239.1.1.1!239.10.1.1
-	secure.GET("/:address/status", handlers.CheckInput)
+	secure.GET("/:address/input/status", handlers.CheckInput)
+	//secure.GET("/:address/status", handlers.DeviceStatus)
 	//secure.GET("/:address/allstatus", handlers.AllInputs)
 	//secure.GET("/:address/reboot", handlers.Reboot)
 
