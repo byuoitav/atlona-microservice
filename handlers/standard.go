@@ -1,16 +1,22 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
-	//"strconv"
 
 	help "github.com/byuoitav/atlona-microservice/helpers"
 	se "github.com/byuoitav/av-api/statusevaluators"
+	"github.com/fatih/color"
 	"github.com/labstack/echo"
 )
+
+type Response struct {
+	errorResp    bool
+	errorMessage string
+}
 
 // Switching between possible inputs for any device
 func SwitchInput(context echo.Context) error {
@@ -19,27 +25,37 @@ func SwitchInput(context echo.Context) error {
 	//Set parameters
 	inputall := context.Param("input")
 	//output := IncPort(context.Param("output"))
-	Address := context.Param("address")
+	address := context.Param("address")
 
 	// Split out the video and audio streams
 	finput := strings.Split(inputall, "!")
-	Video_input := finput[0]
-	Audio_input := finput[1]
+	video_input := finput[0]
+	audio_input := finput[1]
 
 	//Print out the command
-	log.Printf("Routing %v and %v on %v", Video_input, Audio_input, Address)
+	log.Printf("Routing %v and %v on %v", video_input, audio_input, address)
 
 	//Call SwitchInput from helpers
 	//resp, err := help.SwitchInput(Video_input, Audio_input, Address)
-	err := help.SwitchInput(Video_input, Audio_input, Address)
+	resp, err := help.SwitchInput(video_input, audio_input, address)
 	if err != nil {
 		log.Printf("There was a problem: %v", err.Error())
 		return context.JSON(http.StatusInternalServerError, err.Error())
-	} /* else if resp.Error == true {
-		log.Printf("There was a problem: %v", resp.ErrorMessage)
-	}*/
+	}
+	var mresp Response
+	if resp != "" {
+		err = json.Unmarshal([]byte(resp), &mresp)
+		if err != nil {
+			log.Printf(color.HiRedString("Error: %v", err))
+			return context.JSON(http.StatusInternalServerError, err.Error())
+		}
+	}
+	if mresp.errorResp == true {
+		log.Printf("There was a problem switching: %v", mresp.errorMessage)
+		return context.JSON(http.StatusInternalServerError, mresp.errorMessage)
+	}
 	log.Printf("Success")
-	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", Address, inputall)})
+	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, inputall)})
 }
 
 func CheckInput(context echo.Context) error {
