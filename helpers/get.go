@@ -3,25 +3,16 @@ package helpers
 import (
 	"encoding/json"
 	"fmt"
-	//"log"
-	//"os"
 
 	"github.com/fatih/color"
-	//"github.com/gorilla/websocket"
 )
-
-/*
-type Creds struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-*/
 
 type giCommand struct {
 	Creds
 	SwitchInputGet string `json:"config_get"`
 }
 
+// Get a read out of the current configuration of the inputs for a decoder.
 func GetInput(address string) (string, error) {
 	gi := giCommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, SwitchInputGet: "ip_input"}
 	fmt.Printf("output: %v\n", gi)
@@ -44,8 +35,4 @@ func GetInput(address string) (string, error) {
 	}
 
 	return resp, nil
-}
-
-func testing() {
-	fmt.Printf("Testing......")
 }

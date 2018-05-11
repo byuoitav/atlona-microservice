@@ -76,27 +76,6 @@ func CheckInput(context echo.Context) error {
 	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, input)})
 }
 
-// Endpoint to determine the status of all inputs and outputs. 4 total inputs, 5 total outputs.
-/*func AllInputs(context echo.Context) error {
-	address := context.Param("address")
-	feedback := make(map[string]string)
-	log.Printf("Verifying the input of all output ports.")
-	for i := 1; i <= 5; i++ {
-		out := strconv.Itoa(i)
-		in, err := help.GetInput(address, out)
-		if err != nil {
-			log.Printf("There was a problem: %v", err.Error())
-			return context.JSON(http.StatusInternalServerError, err.Error())
-		}
-		out = DecPort(out)
-		in = DecPort(in)
-		feedback[out] = in
-	}
-	log.Printf("Success")
-	return context.JSON(http.StatusOK, feedback)
-}
-*/
-
 // Endpoint to reboot the Atlona decoder
 /*func Reboot(context echo.Context) error {
 	address := context.Param("address")
