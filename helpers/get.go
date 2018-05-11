@@ -18,13 +18,17 @@ type Creds struct {
 */
 
 type giCommand struct {
-	Creds                 // Defined in common.get
+	userName       string `json:"username"`
+	passWord       string `json:"password"`
 	switchInputGet string `json:"config_get"`
 }
 
 func GetInput(address string) (string, error) {
-	gi := giCommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, switchInputGet: "ip_input"}
+	gi := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
+	fmt.Printf("output: ", gi)
 	comm, err := json.Marshal(gi)
+	test := string(comm)
+	fmt.Printf("Comm Output: ", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
