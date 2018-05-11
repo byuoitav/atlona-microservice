@@ -18,27 +18,26 @@ type Creds struct {
 */
 
 type giCommand struct {
-	userName       string `json:"username"`
-	passWord       string `json:"password"`
-	switchInputGet string `json:"config_get"`
+	Creds
+	SwitchInputGet string `json:"config_get"`
 }
 
 func GetInput(address string) (string, error) {
-	GI := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
-	fmt.Printf("output: %v\n", GI)
-	gcomm, err := json.Marshal(GI)
+	gi := giCommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, SwitchInputGet: "ip_input"}
+	fmt.Printf("output: %v\n", gi)
+	comm, err := json.Marshal(gi)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error: %v\n", err))
 		return "", err
 	}
-	test := string(gcomm)
+	test := string(comm)
 	fmt.Printf("Comm Output: %v\n", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
 	}
 
-	resp, err := OpenConnection(address, gcomm)
+	resp, err := OpenConnection(address, comm)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error Connecting to Decoder:", err))
 		return "", err
