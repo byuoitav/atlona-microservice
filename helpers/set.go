@@ -37,9 +37,6 @@ func SwitchInput(Video_input string, Audio_input string, Address string) (string
 		return "", err
 	}
 
-	// Output to Console the factored JSON
-	m := string(comm)
-
 	// Get a new websocket connection to the decoder
 	resp, err := OpenConnection(Address, comm)
 	if err != nil {

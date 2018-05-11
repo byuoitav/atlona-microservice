@@ -15,14 +15,11 @@ type giCommand struct {
 // Get a read out of the current configuration of the inputs for a decoder.
 func GetInput(address string) (string, error) {
 	gi := giCommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, SwitchInputGet: "ip_input"}
-	fmt.Printf("output: %v\n", gi)
 	comm, err := json.Marshal(gi)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error: %v\n", err))
 		return "", err
 	}
-	test := string(comm)
-	fmt.Printf("Comm Output: %v\n", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
