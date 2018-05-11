@@ -25,10 +25,10 @@ type giCommand struct {
 
 func GetInput(address string) (string, error) {
 	gi := giCommand{userName: EnvUser, passWord: EnvPassword, switchInputGet: "ip_input"}
-	fmt.Printf("output: ", gi)
+	fmt.Printf("output: %v/n", gi)
 	comm, err := json.Marshal(gi)
 	test := string(comm)
-	fmt.Printf("Comm Output: ", test)
+	fmt.Printf("Comm Output: %v/n", test)
 	if err != nil {
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
