@@ -16,6 +16,11 @@ var (
 	EnvPassword = os.Getenv("ATLONA_PASSWORD")
 )
 
+type Creds struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 const (
 	// Time allowed to write a message to the peer.
 	writeWait = 10 * time.Second

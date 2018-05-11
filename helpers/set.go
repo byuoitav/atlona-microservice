@@ -9,15 +9,10 @@ import (
 	"github.com/fatih/color"
 )
 
-var (
-	envuser     = os.Getenv("ATLONA_USERNAME")
-	envpassword = os.Getenv("ATLONA_PASSWORD")
-)
-
-type Creds struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
+//type Creds struct {
+//	Username string `json:"username"`
+//	Password string `json:"password"`
+//}
 
 type SwitchConfigSet struct {
 	Name   string   `json:"name"`
@@ -41,7 +36,7 @@ type SICommand struct {
 func SwitchInput(Video_input string, Audio_input string, Address string) (string, error) {
 	// Building JSON Query
 	fig := []Config{Config{Multicast: Multicast{Address: Video_input}, Name: "ip_input1"}, Config{Multicast: Multicast{Address: Audio_input}, Name: "ip_input3"}}
-	SC := SICommand{Creds: Creds{Username: envuser, Password: envpassword}, SwitchConfigSet: SwitchConfigSet{Name: "ip_input", Config: fig}}
+	SC := SICommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, SwitchConfigSet: SwitchConfigSet{Name: "ip_input", Config: fig}}
 	fmt.Println(SC)
 	comm, err := json.Marshal(SC)
 	if err != nil {
