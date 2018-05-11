@@ -61,19 +61,19 @@ func SwitchInput(context echo.Context) error {
 func CheckInput(context echo.Context) error {
 	//Set params, only need output to verify which input is connected.
 	address := context.Param("address")
-	inputall := context.Param("input")
+	//inputall := context.Param("input")
 
-	//log.Printf("Verifiying which input is connected to %v", output)
+	log.Printf("Verifiying which inputs are connected to %v decoder", address)
 
 	//Call help.GetInput func, it will return the input as a string
-	//input, err := help.GetInput(address, output)
-	//if err != nil {
-	//	log.Printf("There was a problem: %v", err.Error())
-	//	return context.JSON(http.StatusInternalServerError, err.Error())
-	//}
+	input, err := help.GetInput(address)
+	if err != nil {
+		log.Printf("There was a problem: %v", err.Error())
+		return context.JSON(http.StatusInternalServerError, err.Error())
+	}
 
 	log.Printf("Success")
-	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, inputall)})
+	return context.JSON(http.StatusOK, se.Input{Input: fmt.Sprintf("%s:%s", address, input)})
 }
 
 // Endpoint to determine the status of all inputs and outputs. 4 total inputs, 5 total outputs.

@@ -3,11 +3,17 @@ package helpers
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	//"github.com/byuoitav/event-router-microservice/base"
 	"github.com/fatih/color"
 	"github.com/gorilla/websocket"
+)
+
+var (
+	EnvUser     = os.Getenv("ATLONA_USERNAME")
+	EnvPassword = os.Getenv("ATLONA_PASSWORD")
 )
 
 const (

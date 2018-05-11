@@ -1,8 +1,12 @@
 package helpers
 
 import (
+	"encoding/json"
 	"fmt"
 	//"log"
+	//"os"
+
+	"github.com/fatih/color"
 	//"github.com/gorilla/websocket"
 )
 
@@ -11,41 +15,29 @@ type Creds struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+*/
 
-type SwitchConfigSet struct {
-	Name   string   `json:"name"`
-	Config []Config `json:"config"`
+type giCommand struct {
+	Creds                 // Defined in common.get
+	switchInputGet string `json:"config_get"`
 }
 
-type Config struct {
-	Multicast `json:"multicast"`
-	Name      string `json:"name"`
-}
+func GetInput(address string) (string, error) {
+	gi := giCommand{Creds: Creds{Username: EnvUser, Password: EnvPassword}, switchInputGet: "ip_input"}
+	comm, err := json.Marshal(gi)
+	if err != nil {
+		fmt.Printf(color.HiRedString("Error:", err))
+		return "", err
+	}
 
-type Multicast struct {
-	Address string `json:"address"`
-}
+	resp, err := OpenConnection(address, comm)
+	if err != nil {
+		fmt.Printf(color.HiRedString("Error Connecting to Decoder:", err))
+		return "", err
+	}
 
-type Command struct {
-	Creds
-	SwitchConfigSet `json:"config_set"`
+	return resp, nil
 }
-
-func GetInput(address, string) (string, error) {
-	//command := ("Statusx" + output)
-	conn := OpenConnection(address, Comm)
-	//command += string(CARRIAGE_RETURN)
-	//conn.Write([]byte(command))
-	//resp, err := readUntil(CARRIAGE_RETURN, conn, 1)
-	//if err != nil {
-	//	log.Printf("%s", err)
-	//}
-	//log.Printf("Feedback: %s", resp)
-	//s := string(resp[1])
-	conn.Close()
-	//return s, err
-	return nil
-}*/
 
 func testing() {
 	fmt.Printf("Testing......")

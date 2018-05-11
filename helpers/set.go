@@ -38,11 +38,6 @@ type SICommand struct {
 	SwitchConfigSet `json:"config_set"`
 }
 
-/*type Response struct {
-	errorResp    bool
-	errorMessage string
-}*/
-
 func SwitchInput(Video_input string, Audio_input string, Address string) (string, error) {
 	// Building JSON Query
 	fig := []Config{Config{Multicast: Multicast{Address: Video_input}, Name: "ip_input1"}, Config{Multicast: Multicast{Address: Audio_input}, Name: "ip_input3"}}
@@ -53,7 +48,7 @@ func SwitchInput(Video_input string, Audio_input string, Address string) (string
 		fmt.Printf(color.HiRedString("Error:", err))
 		return "", err
 	}
-	// var mresp Response
+
 	// Output to Console the factored JSON
 	m := string(comm)
 	fmt.Println(m)
@@ -64,14 +59,7 @@ func SwitchInput(Video_input string, Audio_input string, Address string) (string
 		log.Printf(color.HiRedString("Error:", err))
 		return "", err
 	}
-	//err = json.Unmarshal([]byte(resp), &mresp)
-	//if err != nil {
-	//	log.Printf(color.HiRedString("Error: %v", err))
-	//}
-	//if mresp.errorResp == true {
-	//	log.Printf(color.HiRedString("Error:", mresp.errorMessage))
-	//	return nil
-	//}
+
 	return resp, nil
 }
 

@@ -35,16 +35,18 @@ func main() {
 	// Functionality endpoints for Atlona Video over IP Switching
 	secure.GET("/:address/input/:input", handlers.SwitchInput) //Format :input with 239.1.1.1!239.10.1.1
 	secure.GET("/:address/input/status", handlers.CheckInput)
+	//secure.GET("/:address/reboot", handlers.Reboot)
+
+	// Future Possible Functionality Endpoints for Video over IP Switching
 	//secure.GET("/:address/status", handlers.DeviceStatus)
 	//secure.GET("/:address/allstatus", handlers.AllInputs)
-	//secure.GET("/:address/reboot", handlers.Reboot)
 
 	// Functionality endpoints for Atlona Standard Switch
 	secure.GET("/switch/:address/input/:input/:output", handlersmatrix.SwitchInput)
 	secure.GET("/switch/:address/status/:output", handlersmatrix.CheckInput)
 	secure.GET("/switch/:address/allstatus", handlersmatrix.AllInputs)
 
-	// Status endpoints
+	//Status endpoints
 
 	server := http.Server{
 		Addr:           port,
