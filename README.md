@@ -1,2 +1,2 @@
 # atlona-microservice
-Controlling Atlona switch
+Controlling the Atlona Omnistream Video Over IP Encoder and Decoder
